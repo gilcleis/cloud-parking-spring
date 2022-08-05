@@ -52,4 +52,10 @@ public class ParkingService {
 		return parkingCreate;
 	}
 
+	public void delete(String id) {
+		Parking parking = findById(id);
+		parkingMap.remove(id);
+		
+	}
+
 }
