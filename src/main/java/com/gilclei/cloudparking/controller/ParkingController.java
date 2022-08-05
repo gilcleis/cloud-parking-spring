@@ -17,8 +17,12 @@ import com.gilclei.cloudparking.controller.mapper.ParkingMapper;
 import com.gilclei.cloudparking.model.Parking;
 import com.gilclei.cloudparking.service.ParkingService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/parking")
+@Api(tags = "Parking Controller")
 public class ParkingController {
 
 	private final ParkingService parkingService;
@@ -30,6 +34,7 @@ public class ParkingController {
 	}
 
 	@GetMapping
+	@ApiOperation("Find All Parkings")
 	public ResponseEntity<List<ParkingDTO>> findAll() {
 		List<Parking> parkingList = parkingService.findAll();
 		List<ParkingDTO> result = parkingMapper.toParkingDTOList(parkingList);
@@ -37,6 +42,7 @@ public class ParkingController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation("Find By Id")
 	public ResponseEntity<ParkingDTO> findById(@PathVariable String id) {
 		Parking parking = parkingService.findById(id);
 		ParkingDTO result = parkingMapper.toParkingDTO(parking);
