@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.gilclei.cloudparking.model.Parking;
@@ -61,6 +60,9 @@ public class ParkingService {
 	public Parking update(String id, Parking parkingCreate) {
 		Parking parking = findById(id);
 		parking.setColor(parkingCreate.getColor());
+		parking.setState(parkingCreate.getState());
+		parking.setModel(parkingCreate.getModel());
+		parking.setLicense(parkingCreate.getLicense());
 		parkingMap.replace(id, parking);
 		return parking;
 	}
@@ -71,7 +73,5 @@ public class ParkingService {
 		parkingMap.replace(id, parking);
 		return parking;
 	}
-	
-
 
 }
