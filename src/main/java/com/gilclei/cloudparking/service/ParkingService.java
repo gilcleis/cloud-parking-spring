@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +31,22 @@ public class ParkingService {
 	private ParkingRepository parkingRepository;
 	
 
+	@Transactional
 	public List<Parking> findAll() {
 		return parkingRepository.findAll();
 	}
 
+	@Transactional
 	private static String getUUID() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
 
+	@Transactional
 	public Parking findById(String id) {
 		return parkingRepository.findById(id).orElseThrow(() -> new ParkinkNotFoundException(id));
 	}
 
+	@Transactional
 	public Parking create(Parking parkingCreate) {
 		String uuid = getUUID();
 		parkingCreate.setId(uuid);
@@ -49,12 +55,14 @@ public class ParkingService {
 		return parkingCreate;
 	}
 
+	@Transactional
 	public void delete(String id) {
 		findById(id);
 		parkingRepository.deleteById(id);
 
 	}
 
+	@Transactional
 	public Parking update(String id, Parking parkingCreate) {
 		Parking parking = findById(id);
 		parking.setColor(parkingCreate.getColor());
@@ -64,7 +72,8 @@ public class ParkingService {
 		parkingRepository.save(parking);
 		return parking;
 	}
-
+	
+	@Transactional
 	public Parking checkOut(String id) {
 		Parking parking = findById(id);
 		parking.setExitDate(LocalDateTime.now());
