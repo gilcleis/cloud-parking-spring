@@ -22,7 +22,7 @@ public class ParkingService {
 		var id = getUUID();
 		var id1 = getUUID();
 		Parking parking = new Parking(id, "MMS-2222", "SP", "CELTA", "PRETO");
-		Parking parking1 = new Parking(id1 , "BBB-33#3", "BA", "GOL", "PRETO");
+		Parking parking1 = new Parking(id1, "BBB-33#3", "BA", "GOL", "PRETO");
 		parkingMap.put(id, parking);
 		parkingMap.put(id1, parking1);
 	}
@@ -40,7 +40,7 @@ public class ParkingService {
 		if (parking == null) {
 			throw new ParkinkNotFoundException(id);
 		}
-		return  parking;
+		return parking;
 
 	}
 
@@ -55,7 +55,7 @@ public class ParkingService {
 	public void delete(String id) {
 		Parking parking = findById(id);
 		parkingMap.remove(id);
-		
+
 	}
 
 	public Parking update(String id, Parking parkingCreate) {
@@ -65,5 +65,13 @@ public class ParkingService {
 		return parking;
 	}
 
+	public Parking checkOut(String id) {
+		Parking parking = findById(id);
+		parking.setExitDate(LocalDateTime.now());
+		parkingMap.replace(id, parking);
+		return parking;
+	}
 	
+
+
 }
