@@ -2,8 +2,7 @@
 <p> Sejam bem-vindos ao projeto de LAB <strong>Realizando Deploy na Nuvem de um conjunto de API’s desenvolvida em Spring Boot</strong> oferecido gratuitamente pela plataforma de cursos online <a href="https://dio.me/"><strong> Digital Innovation One</strong></a>.<br>
 
 <h2>🎯 Objetivo do Projeto</h2>
-<p>Ao final deste projeto, o Dev irá conhecer os principais conceitos de mapeamento objeto relacional (ORM) usando o <strong>Spring Data JPA</strong>. Para isso, uma <strong>API RESTful</strong> será desenvolvida com ênfase na modelagem de suas entidades, no domínio de uma academia de ginástica.</p>
-
+Desenvolver um conjunto de API’s utilizando Spring Boot para controlar um estacionamento de veículos. Serão controlados a entrada, saída e valor a ser cobrado do cliente. São aplicadas as boas práticas de desenvolvimento de API’s incluindo segurança com Spring Security e acesso a banco de dados PostgreSQL. São realizados testes e relatórios de cobertura de testes. 
 <h2>
 🛑 Pré-requistos
 </h2>
@@ -85,6 +84,16 @@ Indica qual é o lado inverso ou não dominante da relação.
     <li><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.repositories">Spring Data JPA - Reference Documentation</a></li>
 </ul>
 
+## Run database
+docker run --name parking-db -p 5432:5432 -e POSTGRES_DB=parking -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123 -d postgres:10-alpine
+
+## Start and Stop
+
+### Stop Database
+docker stop parking-db
+
+### Start Database
+docker start parking-db
 
 <h2> 🤝 Contribuindo </h2>
 

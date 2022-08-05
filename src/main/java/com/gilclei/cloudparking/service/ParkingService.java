@@ -1,21 +1,20 @@
 package com.gilclei.cloudparking.service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gilclei.cloudparking.model.Parking;
+import com.gilclei.cloudparking.repository.ParkingRepository;
 import com.gilclei.cloudparking.service.exception.ParkinkNotFoundException;
 
 @Service
 public class ParkingService {
 
-	private static Map<String, Parking> parkingMap = new HashMap();
+//	private static Map<String, Parking> parkingMap = new HashMap();
 
 //	static {
 //		var id = getUUID();
@@ -25,9 +24,13 @@ public class ParkingService {
 //		parkingMap.put(id, parking);
 //		parkingMap.put(id1, parking1);
 //	}
+	
+	@Autowired
+	private ParkingRepository parkingRepository;
+	
 
 	public List<Parking> findAll() {
-		return parkingMap.values().stream().collect(Collectors.toList());
+		return parkingRepository.findAll();
 	}
 
 	private static String getUUID() {
@@ -35,25 +38,20 @@ public class ParkingService {
 	}
 
 	public Parking findById(String id) {
-		var parking = parkingMap.get(id);
-		if (parking == null) {
-			throw new ParkinkNotFoundException(id);
-		}
-		return parking;
-
+		return parkingRepository.findById(id).orElseThrow(() -> new ParkinkNotFoundException(id));
 	}
 
 	public Parking create(Parking parkingCreate) {
 		String uuid = getUUID();
 		parkingCreate.setId(uuid);
 		parkingCreate.setEntryDate(LocalDateTime.now());
-		parkingMap.put(uuid, parkingCreate);
+		parkingRepository.save(parkingCreate);
 		return parkingCreate;
 	}
 
 	public void delete(String id) {
-		Parking parking = findById(id);
-		parkingMap.remove(id);
+		findById(id);
+		parkingRepository.deleteById(id);
 
 	}
 
@@ -63,15 +61,15 @@ public class ParkingService {
 		parking.setState(parkingCreate.getState());
 		parking.setModel(parkingCreate.getModel());
 		parking.setLicense(parkingCreate.getLicense());
-		parkingMap.replace(id, parking);
+		parkingRepository.save(parking);
 		return parking;
 	}
 
-	public Parking checkOut(String id) {
-		Parking parking = findById(id);
-		parking.setExitDate(LocalDateTime.now());
-		parkingMap.replace(id, parking);
-		return parking;
-	}
+//	public Parking checkOut(String id) {
+//		Parking parking = findById(id);
+//		parking.setExitDate(LocalDateTime.now());
+//		parkingMap.replace(id, parking);
+//		return parking;
+//	}
 
 }
