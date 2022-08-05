@@ -65,11 +65,12 @@ public class ParkingService {
 		return parking;
 	}
 
-//	public Parking checkOut(String id) {
-//		Parking parking = findById(id);
-//		parking.setExitDate(LocalDateTime.now());
-//		parkingMap.replace(id, parking);
-//		return parking;
-//	}
+	public Parking checkOut(String id) {
+		Parking parking = findById(id);
+		parking.setExitDate(LocalDateTime.now());
+		parking.setBill(ParkingCheckOut.getBill(parking));
+		parkingRepository.save(parking);
+		return parking;
+	}
 
 }
