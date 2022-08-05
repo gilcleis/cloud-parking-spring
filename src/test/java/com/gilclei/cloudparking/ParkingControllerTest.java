@@ -14,7 +14,8 @@ import com.gilclei.cloudparking.controller.dto.ParkingCreateDTO;
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ParkingControllerTest {
+//class ParkingControllerTest extends AbstractContainerBase { usar docker para testes
+class ParkingControllerTest{
 
 	@LocalServerPort
 	private int randomPort;
