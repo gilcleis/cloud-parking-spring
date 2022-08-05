@@ -58,4 +58,12 @@ public class ParkingService {
 		
 	}
 
+	public Parking update(String id, Parking parkingCreate) {
+		Parking parking = findById(id);
+		parking.setColor(parkingCreate.getColor());
+		parkingMap.replace(id, parking);
+		return parking;
+	}
+
+	
 }
